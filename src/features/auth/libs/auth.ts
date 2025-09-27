@@ -137,5 +137,6 @@ export async function deleteSession(token: string) {
     await prisma.session.delete({ where: { id: sessionId } });
   } catch (error) {
     // Error deleting session is ignored during logout.
+    console.error("Error deleting session:", error);
   }
 }
