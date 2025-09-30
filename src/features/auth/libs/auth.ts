@@ -1,15 +1,14 @@
 import prisma from "@/src/services/prisma/client";
-
-// Session expiry constants
-const SESSION_EXPIRY_DAYS = 7;
-const SESSION_EXPIRY_MS = 1000 * 60 * 60 * 24 * SESSION_EXPIRY_DAYS;
+import { argon2id, hash, verify } from "argon2";
 
 /**
  * Generates a cryptographically-secure random string.
  * Uses a human-readable alphabet to avoid confusion between characters like 'l', '1', 'o', '0'.
  * @returns A secure random string.
  */
-export function generateSecureRandomString(length: number = 32): string {
+export function generateSecureRandomString({
+  length = 32,
+}: { length?: number } = {}): string {
   const alphabet =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
   const array = new Uint8Array(length);
@@ -37,7 +36,11 @@ export function generateSecureRandomString(length: number = 32): string {
  * @param secret The secret string to hash.
  * @returns A Uint8Array containing the hash.
  */
-export async function hashSecret(secret: string): Promise<Uint8Array> {
+export async function hashSecret({
+  secret,
+}: {
+  secret: string;
+}): Promise<Uint8Array> {
   const secretBytes = new TextEncoder().encode(secret);
   const secretHashBuffer = await crypto.subtle.digest("SHA-256", secretBytes);
   return new Uint8Array(secretHashBuffer);
@@ -49,7 +52,13 @@ export async function hashSecret(secret: string): Promise<Uint8Array> {
  * @param b The second byte array.
  * @returns True if the arrays are equal, false otherwise.
  */
-export function constantTimeEqual(a: Uint8Array, b: Uint8Array): boolean {
+export function constantTimeEqual({
+  a,
+  b,
+}: {
+  a: Uint8Array;
+  b: Uint8Array;
+}): boolean {
   if (a.byteLength !== b.byteLength) {
     return false;
   }
@@ -65,22 +74,18 @@ export function constantTimeEqual(a: Uint8Array, b: Uint8Array): boolean {
  * @param userId The ID of the user to create a session for.
  * @returns The session token string (id.secret) to be sent to the client.
  */
-export async function createSession(userId: string) {
-  const id = generateSecureRandomString();
+export async function createSession({ userId }: { userId: string }) {
   const secret = generateSecureRandomString();
-  const secretHash = await hashSecret(secret);
-  const token = `${id}.${secret}`;
+  const secretHash = await hashSecret({ secret });
 
-  const expiresAt = new Date(Date.now() + SESSION_EXPIRY_MS);
-
-  await prisma.session.create({
+  const session = await prisma.session.create({
     data: {
-      id,
       userId,
       secretHash: Buffer.from(secretHash), // Convert Uint8Array to Buffer for Prisma's Bytes type
-      expiresAt,
     },
   });
+
+  const token = `${session.id}.${secret}`;
 
   return token;
 }
@@ -111,11 +116,11 @@ export async function validateSessionToken(token: string) {
     return null;
   }
 
-  const tokenSecretHash = await hashSecret(sessionSecret);
-  const validSecret = constantTimeEqual(
-    tokenSecretHash,
-    new Uint8Array(session.secretHash)
-  );
+  const tokenSecretHash = await hashSecret({ secret: sessionSecret });
+  const validSecret = constantTimeEqual({
+    a: tokenSecretHash,
+    b: new Uint8Array(session.secretHash),
+  });
 
   if (!validSecret) {
     // Invalid secret - potential security issue. You could log this event.
@@ -128,7 +133,7 @@ export async function validateSessionToken(token: string) {
  * Deletes a session from the database, effectively logging the user out.
  * @param token The session token string (id.secret).
  */
-export async function deleteSession(token: string) {
+export async function deleteSession({ token }: { token: string }) {
   const sessionId = token.split(".")[0];
   if (!sessionId) return;
 
@@ -139,4 +144,64 @@ export async function deleteSession(token: string) {
     // Error deleting session is ignored during logout.
     console.error("Error deleting session:", error);
   }
+}
+
+/**
+ * Creates a new user in the database with a securely hashed password.
+ * @param options An object containing the username and password.
+ * @returns The newly created user object.
+ */
+export async function createUser({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
+  const passwordHashRaw = await hash(password, {
+    type: argon2id,
+  });
+
+  const passwordHash =
+    typeof passwordHashRaw === "string"
+      ? passwordHashRaw
+      : passwordHashRaw.toString("base64");
+
+  const user = await prisma.user.create({
+    data: {
+      username,
+      password: {
+        create: {
+          hash: passwordHash,
+        },
+      },
+    },
+  });
+
+  return user;
+}
+
+/**
+ * Verifies a user's credentials.
+ * @param options An object containing the username and password.
+ * @returns The user object if credentials are valid, otherwise null.
+ */
+export async function verifyUser({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
+  const user = await prisma.user.findUnique({
+    where: { username },
+    include: { password: true },
+  });
+
+  if (!user || !user.password) return null;
+
+  const isValid = await verify(password, user.password.hash);
+  if (!isValid) return null;
+
+  return user;
 }
