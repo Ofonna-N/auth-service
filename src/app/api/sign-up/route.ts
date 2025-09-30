@@ -61,7 +61,6 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24, // 1 day in seconds
       path: "/",
     });
-    // Check if user already exists
   } catch (err) {
     console.error("Error parsing request body:", err);
 
