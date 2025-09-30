@@ -1,7 +1,7 @@
 import { createSession, createUser } from "@/src/features/auth/libs/auth";
 import { Prisma } from "@/src/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { success, z } from "zod";
+import { z } from "zod";
 
 const signUpSchema = z.object({
   username: z
