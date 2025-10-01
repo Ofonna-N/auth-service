@@ -1,7 +1,5 @@
 import { deleteSession } from "@/src/features/auth/libs/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { success } from "zod";
-
 export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get("sessionToken")?.value;
