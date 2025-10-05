@@ -3,6 +3,7 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "5555:5555"
     volumes:
       - type: bind
         source: .
@@ -14,9 +15,9 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       WATCHPACK_POLLING: "true"
-   
+
     # develop:
-    #   watch: 
+    #   watch:
     #     # sync static content
     #     - path: .
     #       action: sync
