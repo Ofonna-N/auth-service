@@ -12,7 +12,7 @@ export default function SignUpPage() {
 
   const signUpMutation = useMutation({
     mutationFn: async (userData: Omit<SignUpFormData, "confirmPassword">) =>
-      signUpApi(userData),
+      signUpApi({ Payload: userData }),
     onSuccess: () => {
       router.push("/dashboard");
     },
