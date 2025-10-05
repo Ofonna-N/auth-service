@@ -5,24 +5,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import SignupForm from "../../features/signup/SignupForm";
 import type { SignUpFormData } from "../../features/signup/schema";
+import { signUpApi } from "../../features/auth/api";
 
 export default function SignUpPage() {
   const router = useRouter();
 
   const signUpMutation = useMutation({
-    mutationFn: async (userData: Omit<SignUpFormData, "confirmPassword">) => {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || "Sign-up failed");
-      }
-      return res.json();
-    },
+    mutationFn: async (userData: Omit<SignUpFormData, "confirmPassword">) =>
+      signUpApi(userData),
     onSuccess: () => {
       router.push("/dashboard");
     },
