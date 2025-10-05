@@ -1,11 +1,11 @@
 export const API_PATHS = {
   auth: {
-    signup: "/api/signup",
-    login: "/api/login",
-    logout: "/api/logout",
+    signup: "/signup",
+    login: "/login",
+    logout: "/logout",
   },
   users: {
-    me: "/api/users/me",
+    me: "/users/me",
   },
 };
 
