@@ -98,6 +98,7 @@ export default function SignupForm(props: {
             fullWidth
             disabled={!!isSubmitting}
             sx={{ mt: 2, py: 1.5 }}
+            loading={!!isSubmitting}
           >
             Sign Up
           </Button>
