@@ -61,6 +61,8 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24, // 1 day in seconds
       path: "/",
     });
+
+    return response;
   } catch (err) {
     console.error("Error parsing request body:", err);
 
