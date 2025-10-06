@@ -6,6 +6,7 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from "@/src/lib/api-helpers";
+import type { SignUpResponseData } from "@/src/types/api";
 
 const signUpSchema = z.object({
   username: z
@@ -49,9 +50,14 @@ export async function POST(request: NextRequest) {
       request.nextUrl.origin
     );
 
+    // Use the shared type for response data
+    const responseData: SignUpResponseData = {
+      userId: user.id,
+    };
+
     const response = NextResponse.json(
       createSuccessResponse({
-        data: { userId: user.id },
+        data: responseData,
         message: "User created successfully",
         metadata: { location: userProfileUrl.toString() },
       }),
