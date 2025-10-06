@@ -4,7 +4,7 @@ import {
   type UseMutationOptions,
 } from "@tanstack/react-query";
 import { loginApi } from "./api";
-import type { LoginResponse } from "./types";
+import type { LoginResponseData } from "../../types/api";
 
 // Base type for login mutation input
 type LoginInput = {
@@ -14,12 +14,12 @@ type LoginInput = {
 
 // Hook parameter interface using object parameters
 interface UseLoginMutationParams {
-  options?: UseMutationOptions<LoginResponse, Error, LoginInput, unknown>;
+  options?: UseMutationOptions<LoginResponseData, Error, LoginInput, unknown>;
 }
 
 export function useLoginMutation(
   params?: UseLoginMutationParams
-): UseMutationResult<LoginResponse, Error, LoginInput, unknown> {
+): UseMutationResult<LoginResponseData, Error, LoginInput, unknown> {
   return useMutation({
     mutationFn: async (credentials: LoginInput) => loginApi(credentials),
     ...params?.options,
