@@ -3,9 +3,9 @@
 import { Box } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import SignupForm from "../../features/signup/SignupForm";
-import type { SignUpFormData } from "../../features/signup/schema";
-import { signUpApi } from "../../features/auth/api";
+import SignupForm from "../../../features/signup/SignupForm";
+import type { SignUpFormData } from "../../../features/signup/schema";
+import { signUpApi } from "../../../features/auth/api";
 
 export default function SignUpPage() {
   const router = useRouter();
