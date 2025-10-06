@@ -2,6 +2,10 @@ import { createSession, createUser } from "@/src/features/auth/libs/auth";
 import { Prisma } from "@/src/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from "@/src/lib/api-helpers";
 
 const signUpSchema = z.object({
   username: z
@@ -21,10 +25,14 @@ export async function POST(request: NextRequest) {
 
     if (!validation.success) {
       return NextResponse.json(
-        {
-          error: "Invalid input",
-          issues: validation.error.issues,
-        },
+        createErrorResponse({
+          error: {
+            code: "VALIDATION_ERROR",
+            message: "Invalid input",
+            details: { issues: validation.error.issues },
+          },
+          message: "Please check your input and try again",
+        }),
         { status: 400 }
       );
     }
@@ -42,10 +50,11 @@ export async function POST(request: NextRequest) {
     );
 
     const response = NextResponse.json(
-      {
-        success: true,
+      createSuccessResponse({
+        data: { userId: user.id },
         message: "User created successfully",
-      },
+        metadata: { location: userProfileUrl.toString() },
+      }),
       {
         status: 201,
         headers: {
@@ -71,13 +80,26 @@ export async function POST(request: NextRequest) {
       err.code === "P2002"
     ) {
       return NextResponse.json(
-        { error: "Username already exists" },
+        createErrorResponse({
+          error: {
+            code: "DUPLICATE_USERNAME",
+            message: "Username already exists",
+            field: "username",
+          },
+          message: "Please choose a different username",
+        }),
         { status: 409 }
       );
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      createErrorResponse({
+        error: {
+          code: "INTERNAL_ERROR",
+          message: "Internal server error",
+        },
+        message: "An unexpected error occurred",
+      }),
       { status: 500 }
     );
   }

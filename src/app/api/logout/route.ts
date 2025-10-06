@@ -1,5 +1,9 @@
 import { deleteSession } from "@/src/features/auth/libs/auth";
 import { NextRequest, NextResponse } from "next/server";
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from "@/src/lib/api-helpers";
 export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get("sessionToken")?.value;
@@ -10,10 +14,12 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const response = NextResponse.json({
-      success: true,
-      message: "Logged out successfully",
-    });
+    const response = NextResponse.json(
+      createSuccessResponse({
+        data: null,
+        message: "Logged out successfully",
+      })
+    );
     response.cookies.set("sessionToken", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -25,7 +31,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Logout error:", error);
     return NextResponse.json(
-      { error: "An unexpected error occurred" },
+      createErrorResponse({
+        error: {
+          code: "INTERNAL_ERROR",
+          message: "An unexpected error occurred",
+        },
+        message: "Failed to log out",
+      }),
       { status: 500 }
     );
   }
