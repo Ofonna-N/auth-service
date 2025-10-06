@@ -1,20 +1,19 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import SignupForm from "../../../features/signup/SignupForm";
 import type { SignUpFormData } from "../../../features/signup/schema";
-import { signUpApi } from "../../../features/auth/api";
+import { useSignUpMutation } from "../../../features/auth/useSignUpMutation";
 
 export default function SignUpPage() {
   const router = useRouter();
 
-  const signUpMutation = useMutation({
-    mutationFn: async (userData: Omit<SignUpFormData, "confirmPassword">) =>
-      signUpApi({ Payload: userData }),
-    onSuccess: () => {
-      router.push("/dashboard");
+  const signUpMutation = useSignUpMutation({
+    options: {
+      onSuccess: () => {
+        router.push("/dashboard");
+      },
     },
   });
 
