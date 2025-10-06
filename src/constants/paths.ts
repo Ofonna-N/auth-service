@@ -10,7 +10,7 @@ export const API_PATHS = {
 };
 
 export const APP_ROUTES = {
-  signUp: "/sign-up",
+  signUp: "/signup",
   login: "/login",
   dashboard: "/dashboard",
 };
