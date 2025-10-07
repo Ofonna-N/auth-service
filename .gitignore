@@ -43,3 +43,5 @@ next-env.d.ts
 /secrets
 
 /src/generated/prisma
+
+copilot-instructions.md
