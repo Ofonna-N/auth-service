@@ -5,7 +5,7 @@ import { z } from "zod";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api-helpers";
+} from "@/src/lib/api_helpers";
 import type { SignUpResponseData } from "@/src/types/api";
 
 const signUpSchema = z.object({

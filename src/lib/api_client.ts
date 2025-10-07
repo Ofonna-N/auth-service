@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { ApiResponse } from "./api-response";
-import { extractApiData, createErrorResponse } from "./api-helpers";
+import type { ApiResponse } from "../types/api_response";
+import { extractApiData, createErrorResponse } from "./api_helpers";
 
 const apiClient = axios.create({
   baseURL: process.env.NODE_ENV === "production" ? "/api" : "/api",

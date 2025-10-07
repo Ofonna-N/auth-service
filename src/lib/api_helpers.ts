@@ -3,7 +3,7 @@ import type {
   ApiResponseSuccess,
   ApiResponseError,
   ApiError,
-} from "./api-response";
+} from "../types/api_response";
 
 // These can be used on both client and server
 export function createSuccessResponse<T>(options: {

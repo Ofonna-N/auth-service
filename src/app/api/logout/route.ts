@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api-helpers";
+} from "@/src/lib/api_helpers";
 export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get("sessionToken")?.value;

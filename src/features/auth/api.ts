@@ -1,4 +1,4 @@
-import { apiRequest, apiClient } from "../../lib/api-client";
+import { apiRequest, apiClient } from "../../lib/api_client";
 import { API_PATHS } from "../../constants/paths";
 import type { SignUpFormData } from "../signup/schema";
 import type {
