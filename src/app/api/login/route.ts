@@ -4,7 +4,7 @@ import z from "zod";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api-helpers";
+} from "@/src/lib/api_helpers";
 
 const SESSION_DURATION_SECONDS = 60 * 60 * 24; // 1 day
 

@@ -4,7 +4,7 @@ import type {
   ApiResponseSuccess,
   ApiResponseError,
   ApiError,
-} from "../lib/api-response";
+} from "../lib/api_response";
 
 // Re-export base response types from lib
 export type { ApiResponse, ApiResponseSuccess, ApiResponseError, ApiError };

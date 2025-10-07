@@ -2,9 +2,9 @@
 
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
-import SignupForm from "../../../features/signup/SignupForm";
+import SignupForm from "../../../features/signup/signup_form";
 import type { SignUpFormData } from "../../../features/signup/schema";
-import { useSignUpMutation } from "../../../features/auth/useSignUpMutation";
+import { useSignUpMutation } from "../../../features/auth/use_sign_up_mutation";
 
 export default function SignUpPage() {
   const router = useRouter();
