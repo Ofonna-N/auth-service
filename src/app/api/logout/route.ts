@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json(
       createSuccessResponse({
-        data: null,
+        data: { message: "Logged out successfully" },
         message: "Logged out successfully",
       })
     );
