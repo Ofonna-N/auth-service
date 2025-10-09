@@ -200,7 +200,7 @@ export async function verifyUser({
 
   if (!user || !user.password) return null;
 
-  const isValid = await verify(password, user.password.hash);
+  const isValid = await verify(user.password.hash, password);
   if (!isValid) return null;
 
   return user;

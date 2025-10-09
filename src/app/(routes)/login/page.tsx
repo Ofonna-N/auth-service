@@ -1,0 +1,47 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { Toaster, toast } from "sonner";
+import { useLoginMutation } from "../../../features/auth/use_login_mutation";
+import LoginForm from "../../../features/login/login_form";
+import type { LoginFormData } from "../../../features/login/schema";
+import { Box } from "@mui/material";
+
+export default function LoginPage() {
+  const router = useRouter();
+
+  const loginMutation = useLoginMutation({
+    options: {
+      onSuccess: () => {
+        toast.success("Logged in successfully!");
+        router.push("/dashboard");
+      },
+    },
+  });
+
+  function onSubmit(values: LoginFormData) {
+    loginMutation.mutate(values);
+  }
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <Toaster richColors />
+      <LoginForm
+        onSubmit={onSubmit}
+        isSubmitting={loginMutation.isPending}
+        serverError={
+          loginMutation.error
+            ? loginMutation.error.response?.data.message
+            : null
+        }
+      />
+    </Box>
+  );
+}

@@ -9,18 +9,24 @@ import {
   CardContent,
   CardHeader,
   TextField,
+  Link as MUILink,
+  Typography,
 } from "@mui/material";
+
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupFormSchema, SignUpFormData } from "./schema";
+import Link from "next/link";
 
-export default function SignupForm(props: {
+export default function SignupForm({
+  onSubmit,
+  isSubmitting,
+  serverError,
+}: {
   onSubmit: (data: SignUpFormData) => void;
   isSubmitting?: boolean;
   serverError?: string | null;
 }) {
-  const { onSubmit, isSubmitting, serverError } = props;
-
   const signupForm = useForm<SignUpFormData>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -91,6 +97,13 @@ export default function SignupForm(props: {
           />
 
           {serverError && <Alert severity="error">{serverError}</Alert>}
+
+          <Typography variant="body2" align="center">
+            Already have an account?{" "}
+            <MUILink component={Link} href="/login" underline="hover">
+              Log in
+            </MUILink>
+          </Typography>
 
           <Button
             type="submit"
