@@ -9,7 +9,7 @@ import {
 const SESSION_DURATION_SECONDS = 60 * 60 * 24; // 1 day
 
 const loginSchema = z.object({
-  username: z.string().email(),
+  username: z.string().min(1),
   password: z.string().min(8),
 });
 
