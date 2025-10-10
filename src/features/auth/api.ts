@@ -34,3 +34,11 @@ export async function logoutApi(
     apiClient.post(API_PATHS.auth.logout)
   );
 }
+
+// Fetch the current authenticated user
+export async function getCurrentUserApi(): Promise<{
+  id: string;
+  username: string;
+}> {
+  return apiRequest(() => apiClient.get(API_PATHS.users.me));
+}

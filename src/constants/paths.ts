@@ -5,7 +5,7 @@ export const API_PATHS = {
     logout: "/logout",
   },
   users: {
-    me: "/users/me",
+    me: "/me",
   },
 };
 
