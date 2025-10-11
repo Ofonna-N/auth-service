@@ -1,8 +1,8 @@
 # Full-Stack User Authentication Service
 
-This is a complete, standalone user authentication service built from scratch as a portfolio project to showcase modern full-stack development skills. It features a secure, session-based authentication system with local (username/password) login, all running in a containerized Docker environment.
+This repository contains a complete, standalone user authentication service implemented from first principles. It features a secure, session-based authentication system with username/password login, running in a containerized Docker environment.
 
-The project was built by following modern security principles and best practices, focusing on a "glass box" approach where all core logic is custom-built rather than relying on a "black box" library.
+The implementation follows modern security principles and a "glass box" approach where core logic is custom-built instead of relying on opaque libraries.
 
 **Live Demo:** \[Link to deployed application will go here]
 
