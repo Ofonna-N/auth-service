@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Full-Stack User Authentication Service
 
-## Getting Started
+This is a complete, standalone user authentication service built from scratch as a portfolio project to showcase modern full-stack development skills. It features a secure, session-based authentication system with local (username/password) login, all running in a containerized Docker environment.
 
-First, run the development server:
+The project was built by following modern security principles and best practices, focusing on a "glass box" approach where all core logic is custom-built rather than relying on a "black box" library.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Live Demo:** \[Link to deployed application will go here]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Secure User Registration:** New users can sign up with a unique username and a password.
+- **Stateful Session Management:** Creates secure, server-side sessions upon successful login, using a modern ID/secret verifier pattern to prevent tampering.
+- **Secure Password Hashing:** User passwords are never stored in plain text. They are securely hashed using the industry-standard **Argon2id** algorithm.
+- **Protected Routes:** A server-side middleware acts as a gatekeeper, protecting sensitive pages (like the user dashboard) from unauthenticated access.
+- **`HttpOnly` Cookies:** Session tokens are stored in secure, `HttpOnly` cookies to protect against XSS attacks.
+- **RESTful API Endpoints:** Clean, well-structured API routes for `/signup`, `/login`, `/logout`, and fetching the current user (`/me`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tech Stack & Core Concepts
 
-## Learn More
+This project utilizes a modern, robust tech stack to demonstrate proficiency across the development lifecycle.
 
-To learn more about Next.js, take a look at the following resources:
+| **Category**  | **Technology**                                                    |
+| :------------ | :---------------------------------------------------------------- |
+| **Framework** | Next.js 14 (App Router)                                           |
+| **Frontend**  | React, Material-UI, TanStack Query, React Hook Form, Zod, Sonner  |
+| **Backend**   | Next.js API Routes, TypeScript                                    |
+| **Database**  | PostgreSQL                                                        |
+| **ORM**       | Prisma                                                            |
+| **Security**  | `argon2` for password hashing, Web Crypto API for session secrets |
+| **DevOps**    | Docker & Docker Compose                                           |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Core Security Concepts Implemented:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Password Hashing & Salting with Argon2id
+- Stateful, Database-Backed Sessions
+- Timing Attack Prevention with `constantTimeEqual`
+- CSRF Protection with `SameSite=Lax` Cookies
+- Server-Side Route Protection via Middleware
 
-## Deploy on Vercel
+### Running Locally
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is fully containerized with Docker, so you do not need to install Node.js or PostgreSQL on your host machine.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  **Clone the repository:**
+    ```bash
+    git clone [repo-url]
+    cd auth-service
+    ```
+2.  **Create your local environment file:**
+    Copy the example environment file to create your own local version.
+    ```bash
+    cp .env.example .env
+    ```
+    _No changes are needed in the `.env` file for local development._
+3.  **Build and start the services:**
+    This command will build the Docker images and start the Next.js app and PostgreSQL database containers in the background.
+    ```bash
+    docker-compose up -d --build
+    ```
+4.  **Run the initial database migration:**
+    This command executes the Prisma migration inside the running `app` container to create your database tables.
+    ```bash
+    docker-compose exec app npx prisma migrate dev --name init
+    ```
