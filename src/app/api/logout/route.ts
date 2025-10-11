@@ -1,9 +1,9 @@
-import { deleteSession } from "@/src/features/auth/libs/auth";
+import { deleteSession } from "@/src/features/auth/libs/session_manager";
 import { NextRequest, NextResponse } from "next/server";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api_helpers";
+} from "@/src/lib/api_response_helpers";
 export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get("sessionToken")?.value;

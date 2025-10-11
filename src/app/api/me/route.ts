@@ -1,9 +1,9 @@
-import { validateSessionToken } from "@/src/features/auth/libs/auth";
+import { validateSessionToken } from "@/src/features/auth/libs/session_manager";
 import { NextRequest, NextResponse } from "next/server";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api_helpers";
+} from "@/src/lib/api_response_helpers";
 
 export async function GET(request: NextRequest) {
   try {

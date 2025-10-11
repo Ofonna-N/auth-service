@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { APP_ROUTES } from "@/src/constants/paths";
-import { loginFormSchema, LoginFormData } from "../form_schema";
+import { loginFormSchema, LoginFormData } from "../constants/login_form_schema";
 
 export default function LoginForm({
   onSubmit,

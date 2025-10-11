@@ -3,9 +3,12 @@ import {
   type UseMutationResult,
   type UseMutationOptions,
 } from "@tanstack/react-query";
-import type { SignUpFormData } from "../signup/schema";
-import { signUpApi } from "./api";
-import type { ApiResponseError, SignUpResponseData } from "../../types/api";
+import type { SignUpFormData } from "../constants/signup_form_schema";
+import { signUpApi } from "../libs/auth_api_clients";
+import type {
+  ApiResponseError,
+  SignUpResponseData,
+} from "../../../types/api_schemas";
 import { AxiosError } from "axios";
 
 // Base type for sign up mutation input

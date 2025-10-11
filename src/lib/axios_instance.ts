@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { ApiResponse } from "../types/api_response";
-import { extractApiData, createErrorResponse } from "./api_helpers";
+import { extractApiData, createErrorResponse } from "./api_response_helpers";
 
-const apiClient = axios.create({
+const axiosInstance = axios.create({
   baseURL: process.env.NODE_ENV === "production" ? "/api" : "/api",
   withCredentials: true,
   headers: {
@@ -11,7 +11,7 @@ const apiClient = axios.create({
 });
 
 // Add response interceptor using our helper functions
-apiClient.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -48,4 +48,4 @@ export async function apiRequest<T>(requestFn: () => Promise<any>): Promise<T> {
   return extractApiData<T>(response.data);
 }
 
-export { apiClient };
+export { axiosInstance as apiClient };

@@ -15,7 +15,10 @@ import {
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupFormSchema, SignUpFormData } from "./schema";
+import {
+  signupFormSchema,
+  SignUpFormData,
+} from "../constants/signup_form_schema";
 import Link from "next/link";
 import { APP_ROUTES } from "@/src/constants/paths";
 

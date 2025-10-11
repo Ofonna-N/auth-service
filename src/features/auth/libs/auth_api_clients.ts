@@ -1,11 +1,11 @@
-import { apiRequest, apiClient } from "../../lib/api_client";
-import { API_PATHS } from "../../constants/paths";
-import type { SignUpFormData } from "../signup/schema";
+import { apiRequest, apiClient } from "../../../lib/axios_instance";
+import { API_PATHS } from "../../../constants/paths";
+import type { SignUpFormData } from "../constants/signup_form_schema";
 import type {
   SignUpResponseData,
   LoginResponseData,
   LogoutResponseData,
-} from "../../types/api";
+} from "../../../types/api_schemas";
 
 export async function signUpApi(options: {
   Payload: Omit<SignUpFormData, "confirmPassword">;

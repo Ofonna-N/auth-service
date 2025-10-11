@@ -3,7 +3,7 @@ import {
   type UseQueryResult,
   type UseQueryOptions,
 } from "@tanstack/react-query";
-import { getCurrentUserApi } from "./api";
+import { getCurrentUserApi } from "../features/auth/libs/auth_api_clients";
 import { AxiosError } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
 
