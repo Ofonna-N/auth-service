@@ -4,10 +4,11 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from "@/src/lib/api_response_helpers";
+import { SESSION_COOKIE } from "@/src/constants/session_cookie";
 
 export async function GET(request: NextRequest) {
   try {
-    const sessionToken = request.cookies.get("sessionToken")?.value;
+    const sessionToken = request.cookies.get(SESSION_COOKIE)?.value;
 
     if (!sessionToken) {
       return NextResponse.json(
