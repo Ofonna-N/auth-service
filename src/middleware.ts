@@ -4,7 +4,7 @@ import { APP_ROUTES } from "./constants/paths";
 import { validateSessionToken } from "./features/auth/libs/session_manager";
 
 const protectedRoutes = ["/dashboard"];
-const publicRoutes = ["/login", "/signup"];
+// const publicRoutes = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;

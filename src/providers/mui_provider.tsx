@@ -9,7 +9,7 @@ export default function MuiProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [mode, setMode] = React.useState<"light" | "dark">("dark");
+  const [mode, _] = React.useState<"light" | "dark">("dark");
   const theme = React.useMemo(() => createAppTheme(mode), [mode]);
 
   return (

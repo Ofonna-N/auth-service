@@ -14,20 +14,12 @@ import {
   Typography,
   Box,
   CircularProgress,
-  Alert,
   AppBar,
   Toolbar,
-  IconButton,
 } from "@mui/material";
 import { FiLogOut } from "react-icons/fi"; // Using a react-icon for the logout button
 import { useCurrentUserQuery } from "@/src/hooks/use_current_user_query";
 import { useLogoutMutation } from "@/src/features/auth/hooks/use_logout_mutation";
-
-// This is a placeholder type. In a real app, you'd have a proper User type.
-type User = {
-  id: string;
-  username: string;
-};
 
 export default function DashboardPage() {
   const router = useRouter();

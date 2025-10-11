@@ -1,5 +1,4 @@
 import axios from "axios";
-import type { ApiResponse } from "../types/api_response";
 import { extractApiData, createErrorResponse } from "./api_response_helpers";
 
 const axiosInstance = axios.create({

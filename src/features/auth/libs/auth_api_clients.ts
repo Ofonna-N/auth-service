@@ -28,7 +28,7 @@ export async function loginApi(options: {
 }
 
 export async function logoutApi(
-  options?: Record<string, unknown>
+  _?: Record<string, unknown>
 ): Promise<LogoutResponseData> {
   return apiRequest<LogoutResponseData>(() =>
     apiClient.post(API_PATHS.auth.logout)
