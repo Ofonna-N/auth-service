@@ -4,7 +4,7 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from "@/src/lib/api_response_helpers";
-import { SESSION_COOKIE } from "@/src/constants/session_cookie";
+import { SESSION_COOKIE } from "@/src/constants/session_cookie_key";
 export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get(SESSION_COOKIE)?.value;
