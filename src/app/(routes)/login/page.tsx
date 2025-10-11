@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "@/src/constants/paths";
 import { Toaster, toast } from "sonner";
 import { useLoginMutation } from "../../../features/auth/use_login_mutation";
-import LoginForm from "../../../features/login/login_form";
-import type { LoginFormData } from "../../../features/login/schema";
+import LoginForm from "../../../features/login/components/login_form";
+import type { LoginFormData } from "../../../features/login/form_schema";
 import { Box } from "@mui/material";
 
 export default function LoginPage() {
