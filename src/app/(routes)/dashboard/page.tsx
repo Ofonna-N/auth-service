@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "@/src/constants/paths";
 import { useQueryClient } from "@tanstack/react-query";
 import { Toaster, toast } from "sonner";
 
@@ -33,7 +34,11 @@ export default function DashboardPage() {
   const queryClient = useQueryClient();
 
   // 1. Fetch the current user's data using the shared hook
-  const { data: user, isLoading, error } = useCurrentUserQuery({
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useCurrentUserQuery({
     options: { retry: false },
   });
 
@@ -43,7 +48,7 @@ export default function DashboardPage() {
       onSuccess: () => {
         // Invalidate user query and redirect
         queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-        router.push("/login");
+        router.push(APP_ROUTES.login);
       },
       onError: () => {
         toast.error("Logout failed. Please try again.");
@@ -70,7 +75,7 @@ export default function DashboardPage() {
     // This will be true if the fetchUser call fails (e.g., 401 Unauthorized)
     // We'll add middleware later to handle this redirect automatically,
     // but this is a good client-side fallback.
-    router.push("/login");
+    router.push(APP_ROUTES.login);
     return null; // Render nothing while redirecting
   }
 

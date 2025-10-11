@@ -16,6 +16,7 @@ import {
   Link as MUILink,
 } from "@mui/material";
 import Link from "next/link";
+import { APP_ROUTES } from "@/src/constants/paths";
 import { loginFormSchema, LoginFormData } from "./schema";
 
 export default function LoginForm({
@@ -95,7 +96,11 @@ export default function LoginForm({
 
           <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
             Don't have an account?{" "}
-            <MUILink component={Link} href="/signup" underline="hover">
+            <MUILink
+              component={Link}
+              href={APP_ROUTES.signUp}
+              underline="hover"
+            >
               Sign up
             </MUILink>
           </Typography>

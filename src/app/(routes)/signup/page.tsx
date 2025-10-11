@@ -2,6 +2,7 @@
 
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { APP_ROUTES } from "@/src/constants/paths";
 import SignupForm from "../../../features/signup/signup_form";
 import type { SignUpFormData } from "../../../features/signup/schema";
 import { useSignUpMutation } from "../../../features/auth/use_sign_up_mutation";
@@ -12,7 +13,7 @@ export default function SignUpPage() {
   const signUpMutation = useSignUpMutation({
     options: {
       onSuccess: () => {
-        router.push("/dashboard");
+        router.push(APP_ROUTES.dashboard);
       },
     },
   });
