@@ -4,10 +4,10 @@ import {
   createSuccessResponse,
   createErrorResponse,
 } from "@/src/lib/api_response_helpers";
-import { SESSION_COOKIE } from "@/src/constants/session_cookie_key";
+import { SESSION_COOKIE_KEY } from "@/src/constants/session_cookie_key";
 export async function POST(request: NextRequest) {
   try {
-    const sessionToken = request.cookies.get(SESSION_COOKIE)?.value;
+    const sessionToken = request.cookies.get(SESSION_COOKIE_KEY)?.value;
 
     if (sessionToken) {
       await deleteSession({
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         message: "Logged out successfully",
       })
     );
-    response.cookies.set(SESSION_COOKIE, "", {
+    response.cookies.set(SESSION_COOKIE_KEY, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
