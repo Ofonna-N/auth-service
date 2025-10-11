@@ -8,11 +8,11 @@ const publicRoutes = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isProctectedRoute = protectedRoutes.some((route) =>
+  const isProtectedRoute = protectedRoutes.some((route) =>
     path.startsWith(route)
   );
 
-  if (!isProctectedRoute) {
+  if (!isProtectedRoute) {
     return NextResponse.next();
   }
 
