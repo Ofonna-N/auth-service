@@ -1,11 +1,12 @@
+import { ApiResponseError } from "@/src/types/api_response";
+import { LoginResponseData } from "@/src/types/api_schemas";
 import {
   useMutation,
   type UseMutationResult,
   type UseMutationOptions,
 } from "@tanstack/react-query";
-import { loginApi } from "./api";
-import type { ApiResponseError, LoginResponseData } from "../../types/api";
 import { AxiosError } from "axios";
+import { loginApi } from "../libs/auth_api_clients";
 
 // Base type for login mutation input
 type LoginInput = {
