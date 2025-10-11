@@ -1,12 +1,13 @@
-import { deleteSession } from "@/src/features/auth/libs/auth";
+import { deleteSession } from "@/src/features/auth/libs/session_manager";
 import { NextRequest, NextResponse } from "next/server";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api_helpers";
+} from "@/src/lib/api_response_helpers";
+import { SESSION_COOKIE_KEY } from "@/src/constants/session_cookie_key";
 export async function POST(request: NextRequest) {
   try {
-    const sessionToken = request.cookies.get("sessionToken")?.value;
+    const sessionToken = request.cookies.get(SESSION_COOKIE_KEY)?.value;
 
     if (sessionToken) {
       await deleteSession({
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
         message: "Logged out successfully",
       })
     );
-    response.cookies.set("sessionToken", "", {
+    response.cookies.set(SESSION_COOKIE_KEY, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",

@@ -1,12 +1,15 @@
-import { createSession, createUser } from "@/src/features/auth/libs/auth";
+import {
+  createSession,
+  createUser,
+} from "@/src/features/auth/libs/session_manager";
 import { Prisma } from "@/src/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import {
   createSuccessResponse,
   createErrorResponse,
-} from "@/src/lib/api_helpers";
-import type { SignUpResponseData } from "@/src/types/api";
+} from "@/src/lib/api_response_helpers";
+import type { SignUpResponseData } from "@/src/types/api_schemas";
 
 const signUpSchema = z.object({
   username: z

@@ -1,11 +1,11 @@
-import { apiRequest, apiClient } from "../../lib/api_client";
-import { API_PATHS } from "../../constants/paths";
-import type { SignUpFormData } from "../signup/schema";
+import { apiRequest, apiClient } from "../../../lib/axios_instance";
+import { API_PATHS } from "../../../constants/paths";
+import type { SignUpFormData } from "../constants/signup_form_schema";
 import type {
   SignUpResponseData,
   LoginResponseData,
   LogoutResponseData,
-} from "../../types/api";
+} from "../../../types/api_schemas";
 
 export async function signUpApi(options: {
   Payload: Omit<SignUpFormData, "confirmPassword">;
@@ -28,9 +28,17 @@ export async function loginApi(options: {
 }
 
 export async function logoutApi(
-  options?: Record<string, unknown>
+  _?: Record<string, unknown>
 ): Promise<LogoutResponseData> {
   return apiRequest<LogoutResponseData>(() =>
     apiClient.post(API_PATHS.auth.logout)
   );
+}
+
+// Fetch the current authenticated user
+export async function getCurrentUserApi(): Promise<{
+  id: string;
+  username: string;
+}> {
+  return apiRequest(() => apiClient.get(API_PATHS.users.me));
 }

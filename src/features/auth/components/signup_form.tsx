@@ -15,8 +15,12 @@ import {
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupFormSchema, SignUpFormData } from "./schema";
+import {
+  signupFormSchema,
+  SignUpFormData,
+} from "../constants/signup_form_schema";
 import Link from "next/link";
+import { APP_ROUTES } from "@/src/constants/paths";
 
 export default function SignupForm({
   onSubmit,
@@ -100,7 +104,7 @@ export default function SignupForm({
 
           <Typography variant="body2" align="center">
             Already have an account?{" "}
-            <MUILink component={Link} href="/login" underline="hover">
+            <MUILink component={Link} href={APP_ROUTES.login} underline="hover">
               Log in
             </MUILink>
           </Typography>

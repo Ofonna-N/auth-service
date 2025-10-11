@@ -3,8 +3,8 @@ import {
   type UseMutationResult,
   type UseMutationOptions,
 } from "@tanstack/react-query";
-import { logoutApi } from "./api";
-import type { LogoutResponseData } from "../../types/api";
+import { logoutApi } from "../libs/auth_api_clients";
+import type { LogoutResponseData } from "../../../types/api_schemas";
 
 // Hook parameter interface using object parameters
 interface UseLogoutMutationParams {
