@@ -4,7 +4,7 @@ This repository contains a complete, standalone user authentication service impl
 
 The implementation follows modern security principles and a "glass box" approach where core logic is custom-built instead of relying on opaque libraries.
 
-**Live Demo:** \[Link to deployed application will go here]
+**Live Demo:** [https://auth-service](https://auth-service-woad.vercel.app/)
 
 ### Key Features
 
@@ -43,7 +43,7 @@ This project is fully containerized with Docker, so you do not need to install N
 
 1.  **Clone the repository:**
     ```bash
-    git clone [repo-url]
+    git clone https://github.com/Ofonna-N/auth-service
     cd auth-service
     ```
 2.  **Create your local environment file:**
