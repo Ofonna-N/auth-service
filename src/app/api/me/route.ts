@@ -36,6 +36,8 @@ export async function GET(request: NextRequest) {
       createSuccessResponse({ data: { id: user.id, username: user.username } })
     );
   } catch (error) {
+    // Log the error for debugging while keeping the catch param used
+    console.error("GET /api/me error:", error);
     return NextResponse.json(
       createErrorResponse({
         error: { code: "INTERNAL_ERROR", message: "Internal server error" },

@@ -9,7 +9,7 @@ import type {
 export function createSuccessResponse<T>(options: {
   data: T;
   message?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }): ApiResponseSuccess<T> {
   return {
     success: true,
@@ -23,7 +23,7 @@ export function createSuccessResponse<T>(options: {
 export function createErrorResponse(options: {
   error: ApiError;
   message?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }): ApiResponseError {
   return {
     success: false,

@@ -94,7 +94,7 @@ export default function LoginForm({
           </Button>
 
           <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <MUILink
               component={Link}
               href={APP_ROUTES.signUp}

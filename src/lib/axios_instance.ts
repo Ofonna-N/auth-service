@@ -1,5 +1,6 @@
 import axios from "axios";
 import { extractApiData, createErrorResponse } from "./api_response_helpers";
+import type { ApiResponse } from "../types/api_response";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NODE_ENV === "production" ? "/api" : "/api",
@@ -42,7 +43,9 @@ axiosInstance.interceptors.response.use(
 );
 
 // Simple wrapper that handles the response extraction
-export async function apiRequest<T>(requestFn: () => Promise<any>): Promise<T> {
+export async function apiRequest<T>(
+  requestFn: () => Promise<{ data: ApiResponse<T> }>
+): Promise<T> {
   const response = await requestFn();
   return extractApiData<T>(response.data);
 }
