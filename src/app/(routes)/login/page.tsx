@@ -21,7 +21,10 @@ export default function LoginPage() {
   });
 
   function onSubmit(values: LoginFormData) {
-    loginMutation.mutate(values);
+    loginMutation.mutate({
+      username: values.username.trim(),
+      password: values.password.trim(),
+    });
   }
 
   return (
