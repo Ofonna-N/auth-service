@@ -23,7 +23,7 @@ export default function LoginPage() {
   function onSubmit(values: LoginFormData) {
     loginMutation.mutate({
       username: values.username.trim(),
-      password: values.password.trim(),
+      password: values.password,
     });
   }
 
