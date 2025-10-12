@@ -21,7 +21,7 @@ export default function SignUpPage() {
   function handleSubmit(data: SignUpFormData) {
     signUpMutation.mutate({
       username: data.username.trim(),
-      password: data.password.trim(),
+      password: data.password,
     });
   }
 
