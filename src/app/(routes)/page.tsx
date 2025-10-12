@@ -117,8 +117,9 @@ export default function LandingPage() {
             Full-Stack User Authentication Service
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-            A concise implementation demonstrating a "glass box" approach to
-            building a secure, session-based authentication system from scratch.
+            A concise implementation demonstrating a &ldquo;glass box&rdquo;
+            approach to building a secure, session-based authentication system
+            from scratch.
           </Typography>
           <Button
             variant="contained"

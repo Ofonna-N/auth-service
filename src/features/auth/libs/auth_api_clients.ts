@@ -27,9 +27,7 @@ export async function loginApi(options: {
   );
 }
 
-export async function logoutApi(
-  _?: Record<string, unknown>
-): Promise<LogoutResponseData> {
+export async function logoutApi(): Promise<LogoutResponseData> {
   return apiRequest<LogoutResponseData>(() =>
     apiClient.post(API_PATHS.auth.logout)
   );

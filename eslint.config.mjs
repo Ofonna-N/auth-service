@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      // Generated Prisma client - skip linting
+      "src/generated/**",
     ],
   },
 ];
