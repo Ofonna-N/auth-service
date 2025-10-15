@@ -1,7 +1,4 @@
-import {
-  createSession,
-  createUser,
-} from "@/src/features/auth/libs/session_manager";
+import { createSession } from "@/src/features/auth/libs/session_manager";
 import { Prisma } from "@/src/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -10,6 +7,7 @@ import {
   createErrorResponse,
 } from "@/src/lib/api_response_helpers";
 import type { SignUpResponseData } from "@/src/types/api_schemas";
+import { createUser } from "@/src/features/auth/libs/user_manager";
 
 const signUpSchema = z.object({
   username: z
