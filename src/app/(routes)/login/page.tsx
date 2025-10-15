@@ -7,11 +7,21 @@ import LoginForm from "../../../features/auth/components/login_form";
 import type { LoginFormData } from "../../../features/auth/constants/login_form_schema";
 import { Box } from "@mui/material";
 import { useLoginMutation } from "@/src/features/auth/hooks/use_login_mutation";
+import { useDemoUserLoginMutation } from "@/src/features/auth/hooks/use_demouser_login_mutation";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const loginMutation = useLoginMutation({
+    options: {
+      onSuccess: () => {
+        toast.success("Logged in successfully!");
+        router.push(APP_ROUTES.dashboard);
+      },
+    },
+  });
+
+  const demoLoginMutation = useDemoUserLoginMutation({
     options: {
       onSuccess: () => {
         toast.success("Logged in successfully!");
@@ -27,6 +37,10 @@ export default function LoginPage() {
     });
   }
 
+  function onDemoLogin() {
+    demoLoginMutation.mutate();
+  }
+
   return (
     <Box
       sx={{
@@ -39,11 +53,13 @@ export default function LoginPage() {
       <Toaster richColors />
       <LoginForm
         onSubmit={onSubmit}
-        isSubmitting={loginMutation.isPending}
+        onDemoLogin={onDemoLogin}
+        loginStatus={loginMutation.status}
+        isSubmitting={loginMutation.isPending || demoLoginMutation.isPending}
         serverError={
-          loginMutation.error
-            ? loginMutation.error.response?.data.message
-            : null
+          loginMutation.error?.response?.data.error.message ||
+          demoLoginMutation.error?.response?.data.error.message ||
+          null
         }
       />
     </Box>

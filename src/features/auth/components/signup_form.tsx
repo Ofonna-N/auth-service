@@ -21,15 +21,18 @@ import {
 } from "../constants/signup_form_schema";
 import Link from "next/link";
 import { APP_ROUTES } from "@/src/constants/paths";
+import { UseMutationResult } from "@tanstack/react-query";
 
 export default function SignupForm({
   onSubmit,
   isSubmitting,
   serverError,
+  signupStatus,
 }: {
   onSubmit: (data: SignUpFormData) => void;
   isSubmitting?: boolean;
   serverError?: string | null;
+  signupStatus?: UseMutationResult["status"];
 }) {
   const signupForm = useForm<SignUpFormData>({
     resolver: zodResolver(signupFormSchema),
@@ -113,7 +116,7 @@ export default function SignupForm({
             type="submit"
             variant="contained"
             fullWidth
-            disabled={!!isSubmitting}
+            disabled={!!isSubmitting || signupStatus === "success"}
             sx={{ mt: 2, py: 1.5 }}
             loading={!!isSubmitting}
           >

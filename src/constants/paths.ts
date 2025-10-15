@@ -3,6 +3,7 @@ export const API_PATHS = {
     signup: "/signup",
     login: "/login",
     logout: "/logout",
+    demoLogin: "/demologin",
   },
   users: {
     me: "/me",

@@ -59,13 +59,21 @@ export default function LandingPage() {
         sx={{ borderBottom: "1px solid #e0e0e0" }}
       >
         <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, fontWeight: "bold" }}
-          >
-            Auth Service
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+            <Box
+              component="img"
+              src="/favicon.svg"
+              alt="Auth Service logo"
+              sx={{ width: 32, height: 32, mr: 1 }}
+            />
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ fontWeight: "bold" }}
+            >
+              Auth Service
+            </Typography>
+          </Box>
           <Button
             variant="outlined"
             color="primary"

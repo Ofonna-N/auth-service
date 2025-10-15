@@ -27,6 +27,12 @@ export async function loginApi(options: {
   );
 }
 
+export async function demoLoginApi() {
+  return apiRequest<LoginResponseData>(() =>
+    apiClient.post(API_PATHS.auth.demoLogin)
+  );
+}
+
 export async function logoutApi(): Promise<LogoutResponseData> {
   return apiRequest<LogoutResponseData>(() =>
     apiClient.post(API_PATHS.auth.logout)
