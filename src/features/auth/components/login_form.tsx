@@ -20,10 +20,12 @@ import { loginFormSchema, LoginFormData } from "../constants/login_form_schema";
 
 export default function LoginForm({
   onSubmit,
+  onDemoLogin,
   isSubmitting,
   serverError,
 }: {
   onSubmit: (data: LoginFormData) => void;
+  onDemoLogin: () => void;
   isSubmitting?: boolean;
   serverError?: string | null;
 }) {
@@ -91,6 +93,16 @@ export default function LoginForm({
             sx={{ mt: 2, py: 1.5 }}
           >
             Log in
+          </Button>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={onDemoLogin}
+            sx={{ mt: 2, py: 1.5 }}
+            disabled={!!isSubmitting}
+            loading={!!isSubmitting}
+          >
+            Log in as Demo User
           </Button>
 
           <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
