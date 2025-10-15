@@ -6,6 +6,7 @@ import {
   createErrorResponse,
   createSuccessResponse,
 } from "@/src/lib/api_response_helpers";
+import { SESSION_COOKIE_KEY } from "@/src/constants/session_cookie_key";
 
 const DEMO_USER_CREDENTIALS = {
   username: "demo_user",
@@ -57,7 +58,7 @@ export async function POST() {
       { status: 200 }
     );
 
-    response.cookies.set("session_token", token, {
+    response.cookies.set(SESSION_COOKIE_KEY, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
