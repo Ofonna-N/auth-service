@@ -17,17 +17,20 @@ import {
 import Link from "next/link";
 import { APP_ROUTES } from "@/src/constants/paths";
 import { loginFormSchema, LoginFormData } from "../constants/login_form_schema";
+import { UseMutationResult } from "@tanstack/react-query";
 
 export default function LoginForm({
   onSubmit,
   onDemoLogin,
   isSubmitting,
   serverError,
+  loginStatus,
 }: {
   onSubmit: (data: LoginFormData) => void;
   onDemoLogin: () => void;
   isSubmitting?: boolean;
   serverError?: string | null;
+  loginStatus: UseMutationResult["status"];
 }) {
   const {
     control,
@@ -88,7 +91,7 @@ export default function LoginForm({
             type="submit"
             variant="contained"
             fullWidth
-            disabled={!!isSubmitting}
+            disabled={!!isSubmitting || loginStatus === "success"}
             loading={!!isSubmitting}
             sx={{ mt: 2, py: 1.5 }}
           >
@@ -99,7 +102,7 @@ export default function LoginForm({
             fullWidth
             onClick={onDemoLogin}
             sx={{ mt: 2, py: 1.5 }}
-            disabled={!!isSubmitting}
+            disabled={!!isSubmitting || loginStatus === "success"}
             loading={!!isSubmitting}
           >
             Log in as Demo User

@@ -37,6 +37,7 @@ export default function SignUpPage() {
       <SignupForm
         onSubmit={handleSubmit}
         isSubmitting={signUpMutation.isPending}
+        signupStatus={signUpMutation.status}
         serverError={
           signUpMutation.error ? (signUpMutation.error as Error).message : null
         }

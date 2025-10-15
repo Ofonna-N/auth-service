@@ -54,6 +54,7 @@ export default function LoginPage() {
       <LoginForm
         onSubmit={onSubmit}
         onDemoLogin={onDemoLogin}
+        loginStatus={loginMutation.status}
         isSubmitting={loginMutation.isPending || demoLoginMutation.isPending}
         serverError={
           loginMutation.error?.response?.data.error.message ||
