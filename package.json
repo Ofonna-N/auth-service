@@ -1,44 +1,12 @@
 {
-  "name": "auth-service",
-  "version": "0.1.0",
-  "private": true,
+  "name": "auth-service-with-notifications",
+  "version": "1.0.0",
+  "private": "true",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint",
-    "postinstall": "prisma generate && prisma migrate deploy"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@hookform/resolvers": "^5.2.2",
-    "@mui/material": "^7.3.3",
-    "@prisma/client": "^6.16.2",
-    "@prisma/extension-accelerate": "^2.0.2",
-    "@tanstack/react-query": "^5.90.2",
-    "@tanstack/react-query-devtools": "^5.90.2",
-    "argon2": "^0.40.0-alpha.2",
-    "axios": "^1.12.2",
-    "next": "15.5.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.63.0",
-    "react-icons": "^5.5.0",
-    "sonner": "^2.0.7",
-    "zod": "^4.1.11"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.3",
-    "prisma": "^6.16.2",
-    "tailwindcss": "^4",
-    "tsx": "^4.20.5",
-    "typescript": "^5"
-  }
+  "devDependencies": {}
 }
