@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate && prisma migrate deploy"
+    "postinstall-disabled": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
