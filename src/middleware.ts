@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SESSION_COOKIE_KEY } from "./constants/session_cookie_key";
 import { APP_ROUTES } from "./constants/paths";
-import { validateSessionToken } from "./features/auth/libs/session_manager";
 
 // Route configuration
 const ROUTE_CONFIG = {
@@ -32,66 +31,27 @@ function createRedirect(url: string, request: NextRequest): NextResponse {
   return NextResponse.redirect(new URL(url, request.url));
 }
 
-/**
- * Creates a redirect response with session cleanup
- */
-function createRedirectWithCleanup(
-  url: string,
-  request: NextRequest
-): NextResponse {
-  const response = createRedirect(url, request);
-  response.cookies.set(SESSION_COOKIE_KEY, "", {
-    maxAge: 0,
-    path: "/",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  });
-  return response;
-}
-
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const routeType = getRouteType(pathname);
-  const token = request.cookies.get(SESSION_COOKIE_KEY)?.value;
+  const hasSessionCookie = !!request.cookies.get(SESSION_COOKIE_KEY)?.value;
 
   // Handle routes that don't require authentication
   if (routeType === "public") {
     return NextResponse.next();
   }
 
-  // Handle protected routes without token
-  if (routeType === "protected" && !token) {
+  // Handle protected routes without session cookie - redirect to login
+  if (routeType === "protected" && !hasSessionCookie) {
     return createRedirect(APP_ROUTES.login, request);
   }
 
-  // Handle cases with no token
-  if (!token) {
-    // For auth routes without token, allow access
-    return NextResponse.next();
-  }
-
-  // Validate session token
-  let user;
-  try {
-    user = await validateSessionToken(token);
-  } catch (error) {
-    console.error("Session validation error:", error);
-    // Treat as invalid session
-    user = null;
-  }
-
-  // Handle invalid session
-  if (!user) {
-    return createRedirectWithCleanup(APP_ROUTES.login, request);
-  }
-
-  // Redirect authenticated users away from auth pages
-  if (routeType === "auth") {
+  // Redirect to dashboard if user has session cookie and tries to access auth pages
+  if (routeType === "auth" && hasSessionCookie) {
     return createRedirect(APP_ROUTES.dashboard, request);
   }
 
-  // Allow access to protected routes for authenticated users
+  // Allow access - actual session validation will happen server-side
   return NextResponse.next();
 }
 
